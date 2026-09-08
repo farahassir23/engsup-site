@@ -4,10 +4,12 @@ interface Props {
   summary: string;
   image?: string;
   imageAlt?: string;
+  imageFit?: 'cover' | 'contain';
   category?: string;
+  partNumber?: string;
 }
 
-const { title, summary, image, imageAlt = title, category } = Astro.props;
+const { title, summary, image, imageAlt = title, imageFit = 'cover', category, partNumber } = Astro.props;
 ---
 
 <article class="group">
@@ -17,7 +19,10 @@ const { title, summary, image, imageAlt = title, category } = Astro.props;
         src={image}
         alt={imageAlt}
         loading="lazy"
-        class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+        class:list={[
+          'h-full w-full transition-transform duration-300 group-hover:scale-105',
+          imageFit === 'contain' ? 'object-contain p-10' : 'object-cover',
+        ]}
       />
     ) : (
       <div class="flex h-full w-full items-center justify-center text-xs uppercase tracking-widest text-ink/30">
@@ -26,7 +31,11 @@ const { title, summary, image, imageAlt = title, category } = Astro.props;
     )}
   </div>
   <div class="mt-4">
-    {category && <p class="text-xs uppercase tracking-widest text-accent">{category}</p>}
+    {category && (
+      <p class="text-xs uppercase tracking-widest text-accent">
+        {category}{partNumber && <span class="text-ink/30"> · {partNumber}</span>}
+      </p>
+    )}
     <h3 class="mt-1 text-lg font-medium">{title}</h3>
     <p class="mt-1 text-sm text-ink/60">{summary}</p>
   </div>

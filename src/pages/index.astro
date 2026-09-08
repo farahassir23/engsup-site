@@ -3,10 +3,14 @@ import Layout from '../layouts/Layout.astro';
 import ProductCard from '../components/ProductCard.astro';
 import { getCollection } from 'astro:content';
 
-const products = (await getCollection('products'))
-  .filter((p) => p.data.featured)
-  .sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0))
-  .slice(0, 3);
+const allProducts = (await getCollection('products')).sort(
+  (a, b) => (a.data.order ?? 0) - (b.data.order ?? 0)
+);
+
+const sectionOrder = ['Hazardous & Industrial', 'Meeting & Conferencing', 'Education & Art', 'Other'] as const;
+const sections = sectionOrder
+  .map((name) => ({ name, products: allProducts.filter((p) => p.data.section === name) }))
+  .filter((s) => s.products.length > 0);
 ---
 
 <Layout title="Home" description="STEAM educational products, classroom technology, and hands-on engineering kits.">
@@ -16,31 +20,40 @@ const products = (await getCollection('products'))
     </h1>
     <p class="mx-auto mt-4 max-w-xl text-ink/60">
       STEAM Education uses Science, Technology, Engineering, Arts, and Mathematics as access points for guiding
-      student inquiry, dialogue, and critical thinking — from hands-on classroom kits to interactive displays and
-      computing.
+      student inquiry, dialogue, and critical thinking — from hazardous-environment equipment to meeting technology
+      and hands-on classroom kits.
     </p>
     <a
-      href="/products"
+      href="#catalog"
       class="mt-8 inline-block border border-ink px-6 py-3 text-sm uppercase tracking-widest transition-colors hover:border-accent hover:text-accent"
     >
-      View the Showcase
+      Browse the Catalog
     </a>
   </section>
 
-  {products.length > 0 && (
-    <section class="mx-auto max-w-5xl px-6 pb-24">
-      <h2 class="text-sm uppercase tracking-widest text-ink/40">Featured</h2>
-      <div class="mt-6 grid grid-cols-1 gap-10 sm:grid-cols-3">
-        {products.map((product) => (
-          <ProductCard
-            title={product.data.title}
-            summary={product.data.summary}
-            image={product.data.image}
-            imageAlt={product.data.imageAlt}
-            category={product.data.category}
-          />
-        ))}
+  <section id="catalog" class="mx-auto max-w-5xl px-6 pb-24">
+    {sections.map((section, i) => (
+      <div class:list={[i > 0 && 'mt-20 border-t border-ink/10 pt-16']}>
+        <h2 class:list={[
+          'tracking-tight',
+          section.name === 'Other' ? 'text-sm uppercase tracking-widest text-ink/40' : 'text-2xl font-medium',
+        ]}>
+          {section.name}
+        </h2>
+        <div class="mt-8 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
+          {section.products.map((product) => (
+            <ProductCard
+              title={product.data.title}
+              summary={product.data.summary}
+              image={product.data.image}
+              imageAlt={product.data.imageAlt}
+              imageFit={product.data.imageFit}
+              category={product.data.category}
+              partNumber={product.data.partNumber}
+            />
+          ))}
+        </div>
       </div>
-    </section>
-  )}
+    ))}
+  </section>
 </Layout>
