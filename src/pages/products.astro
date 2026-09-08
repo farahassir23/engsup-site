@@ -6,6 +6,33 @@ import { getCollection } from 'astro:content';
 const products = (await getCollection('products')).sort(
   (a, b) => (a.data.order ?? 0) - (b.data.order ?? 0)
 );
+
+const otherCategories = [
+  {
+    name: 'Computers',
+    items: ['Chromebooks', 'Desktop Computers', 'Desktop Gaming', 'Notebook Computers', 'Notebook Gaming', 'Notebook Workstations', 'Notebook/Tablet 2-in-1', 'Tablets', 'Ultrabooks'],
+  },
+  {
+    name: 'Consumer Electronics',
+    items: ['Headphones', 'Musical Solutions', 'Speakers', 'Sports and Action Video Cameras', 'Surveillance and Security'],
+  },
+  {
+    name: 'Data Storage',
+    items: ['SSD External Hard Drives', 'Flash Memory and Readers', 'Portable Hard Drives', 'Network Attached Storage', 'Optical and Backup Drives', 'USB Flash Drives'],
+  },
+  {
+    name: 'Digital Display & Gaming',
+    items: ['Commercial Display', 'Monitors', 'Mounts and Brackets', 'Projectors', 'Console Gaming Accessories', 'Gaming Headsets'],
+  },
+  {
+    name: 'Printing and Scanning',
+    items: ['Ink, Toner, and Print Supplies', 'Paper', 'Printers', 'Scanners'],
+  },
+  {
+    name: 'Pro Audio',
+    items: ['Accessories', 'Amplifiers', 'Headphones', 'Microphones', 'Mixers', 'Processors', 'Speakers and Speaker Systems', 'Subwoofers'],
+  },
+];
 ---
 
 <Layout title="Showcase" description="Browse the collection.">
@@ -23,6 +50,18 @@ const products = (await getCollection('products')).sort(
           category={product.data.category}
         />
       ))}
+    </div>
+
+    <div class="mt-24 border-t border-ink/10 pt-12">
+      <h2 class="text-sm uppercase tracking-widest text-ink/40">Also Available</h2>
+      <div class="mt-6 grid grid-cols-1 gap-x-10 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
+        {otherCategories.map((cat) => (
+          <div>
+            <h3 class="font-medium">{cat.name}</h3>
+            <p class="mt-1 text-sm text-ink/60">{cat.items.join(', ')}</p>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 </Layout>
