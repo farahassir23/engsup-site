@@ -5,6 +5,6 @@ image: "/images/products/samsung-rugged-tablet.png"
 imageAlt: "Samsung Galaxy rugged tablet"
 category: "Samsung"
 partNumber: "SM-X300NZGAN20"
-section: "Hazardous & Industrial"
+section: "Industrial & Field-Ready"
 order: 2
 ---

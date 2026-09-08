@@ -7,7 +7,7 @@ const allProducts = (await getCollection('products')).sort(
   (a, b) => (a.data.order ?? 0) - (b.data.order ?? 0)
 );
 
-const sectionOrder = ['Hazardous & Industrial', 'Meeting & Conferencing', 'Education & Art', 'Other'] as const;
+const sectionOrder = ['Industrial & Field-Ready', 'Meeting & Conferencing', 'Education & Art', 'Other'] as const;
 const sections = sectionOrder
   .map((name) => ({ name, products: allProducts.filter((p) => p.data.section === name) }))
   .filter((s) => s.products.length > 0);
@@ -15,7 +15,13 @@ const sections = sectionOrder
 
 <Layout title="Home" description="Hazardous-environment equipment, meeting and conferencing technology, and STEAM educational products.">
   <section class="mx-auto max-w-5xl px-6 py-24 text-center">
-    <h1 class="text-3xl font-medium tracking-tight sm:text-4xl">
+    <div class="flex justify-center gap-1.5">
+      <span class="h-3.5 w-3.5 rounded-md bg-accent"></span>
+      <span class="h-3.5 w-3.5 rounded-md bg-accent/70"></span>
+      <span class="h-3 w-3 rounded-md bg-accent/40 mt-0.5"></span>
+      <span class="h-2 w-2 rounded-sm bg-accent/20 mt-1"></span>
+    </div>
+    <h1 class="mt-6 text-3xl font-medium tracking-tight sm:text-4xl">
       Equipping classrooms, boardrooms, and job sites with the technology that works.
     </h1>
     <p class="mx-auto mt-4 max-w-xl text-ink/60">
@@ -24,7 +30,7 @@ const sections = sectionOrder
     </p>
     <a
       href="#catalog"
-      class="mt-8 inline-block border border-ink px-6 py-3 text-sm uppercase tracking-widest transition-colors hover:border-accent hover:text-accent"
+      class="mt-8 inline-block rounded-full bg-gradient-to-r from-accent to-accent-dark px-7 py-3 text-sm font-medium text-white shadow-sm transition-shadow hover:shadow-md"
     >
       Browse the Catalog
     </a>

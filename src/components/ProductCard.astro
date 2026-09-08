@@ -13,7 +13,7 @@ const { title, summary, image, imageAlt = title, imageFit = 'cover', category, p
 ---
 
 <article class="group">
-  <div class="aspect-square w-full overflow-hidden bg-ink/5">
+  <div class="aspect-square w-full overflow-hidden rounded-2xl bg-ink/5 shadow-sm transition-shadow duration-300 group-hover:shadow-lg">
     {image ? (
       <img
         src={image}

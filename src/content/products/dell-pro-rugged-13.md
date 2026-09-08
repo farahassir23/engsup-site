@@ -5,6 +5,6 @@ image: "/images/products/dell-pro-rugged-13.png"
 imageAlt: "Dell Pro Rugged 13 notebook"
 category: "Dell"
 partNumber: "5JCTG"
-section: "Hazardous & Industrial"
+section: "Industrial & Field-Ready"
 order: 3
 ---

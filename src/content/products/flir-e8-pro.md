@@ -5,7 +5,7 @@ image: "/images/products/flir-e8-pro.png"
 imageAlt: "FLIR E8-Pro thermal camera being used for inspection"
 category: "FLIR"
 partNumber: "E8-Pro"
-section: "Hazardous & Industrial"
+section: "Industrial & Field-Ready"
 featured: true
 order: 1
 ---

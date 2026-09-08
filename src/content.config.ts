@@ -11,7 +11,7 @@ const products = defineCollection({
     imageFit: z.enum(['cover', 'contain']).optional(),
     category: z.string().optional(),
     partNumber: z.string().optional(),
-    section: z.enum(['Hazardous & Industrial', 'Meeting & Conferencing', 'Education & Art', 'Other']),
+    section: z.enum(['Industrial & Field-Ready', 'Meeting & Conferencing', 'Education & Art', 'Other']),
     featured: z.boolean().optional(),
     order: z.number().optional(),
   }),
